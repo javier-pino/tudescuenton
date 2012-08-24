@@ -1,24 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <widget xmlns		= "http://www.w3.org/ns/widgets"
 	xmlns:gap	= "http://phonegap.com/ns/1.0"
-	id		= "com.phonegap.getting.started"
-	version 	= "1.1.0">
-
-	<name>PhoneGap: Getting Started</name>
+	id		= "com.tudescuenton.movil"
+	version 	= "1.1.1"
+        versionCode     = "4"
+>
+	<name>TuDescuenton.com - Reservas</name>
 
 	<description>
-		A template for getting started with PhoneGap development and build.phonegap.com
+		Aplicacion Movil de TuDescuenton.com
 	</description>
 
-	<author href="http://alunny.github.com"
-		email="andrew.lunny@nitobi.com">
-		Andrew Lunny
+	<author href="https://www.tudescuenton.com"
+		email="serviciosalcliente@tudescuenton.com">
+		TuDescuenton.com
 	</author>
 
-	<icon src="icon.png" gap:role="default" />
+	<icon src="icon.png" gap:role="default" width="116" height="53"/>
+
+        <gap:splash src="assets/splash/icon.png" width="320" height="480" />
+        <gap:splash src="assets/splash/icon.png" width="320" height="480" />
+        <gap:splash src="assets/splash/icon.png" width="640" height="960" />
+        <gap:splash src="assets/splash/icon.png" width="1024" height="768" />
+        <gap:splash src="assets/splash/icon.png" width="768" height="1024" />
+
+        <gap:splash src="assets/splash/icon.png" gap:platform="android" gap:density="ldpi" />
+        <gap:splash src="assets/splash/icon.png" gap:platform="android" gap:density="mdpi" />
+        <gap:splash src="assets/splash/icon.png" gap:platform="android" gap:density="hdpi" />
+        <gap:splash src="assets/splash/icon.png" gap:platform="android" gap:density="xhdpi" />
+
+        <gap:splash src="assets/splash/icon.png" gap:platform="blackberry" />
+
 
 	<feature name="http://api.phonegap.com/1.0/geolocation"/>
 	<feature name="http://api.phonegap.com/1.0/network"/>
 
-	<preference name="orientation" value="portrait" />
+        <!-- feature name="http://api.phonegap.com/1.0/camera"/ -->
+        <!-- feature name="http://api.phonegap.com/1.0/contacts"/ -->
+        <!-- feature name="http://api.phonegap.com/1.0/notification"/ -->
+
+        <preference name="phonegap-version" value="2.0.0" />
+        <preference name="fullscreen" value="true" />
+        <preference name="stay-in-webview" value="true" />
+        <preference name="exit-on-suspend" value="false" />
+
+        <access />
+
 </widget>
