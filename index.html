@@ -1,63 +1,82 @@
-<!doctype html>
-<html>
-	<head>
-		<meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width" />
-		<title>Training App</title>
-		<link rel="stylesheet" href="assets/css/master.css" type="text/css" media="screen" />
-		
-		<script src="phonegap.js" type="text/javascript" charset="utf-8"></script>
-		
-		<script src="assets/js/xui.js" type="text/javascript" charset="utf-8"></script>
-		
-		<script src="assets/js/lawnchair/adaptors/LawnchairAdaptorHelpers.js" type="text/javascript" charset="utf-8"></script>
-		
-		<script src="assets/js/lawnchair/adaptors/DOMStorageAdaptor.js" type="text/javascript" charset="utf-8"></script>
-		
-		<script src="assets/js/lawnchair/adaptors/WebkitSQLiteAdaptor.js" type="text/javascript" charset="utf-8"></script>
-		
-		<script src="assets/js/lawnchair/Lawnchair.js" type="text/javascript" charset="utf-8"></script>
-		
-		<script src="assets/js/dsl.js" type="text/javascript" charset="utf-8"></script>
-		
-		<script src="assets/js/app.js" type="text/javascript" charset="utf-8"></script>
-		
-	</head>
-	<body>
- 		<div id="title_bar">Phone<strong>Gap</strong> Training App</div>
+<!DOCTYPE html>
+<html class="ui-mobile">
+    <head>
+        <base href="">
+        <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=no">        
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>TúDescuentón.com - Iniciar Sesión</title>
+        
+        <link type="text/css" rel="stylesheet" href="assets/css/jquery.mobile.td.theme-1.1.1.min.css">
+        <link type="text/css" rel="stylesheet" href="assets/css/jquery.mobile.structure-1.1.1.min.css">
+        <link type="text/css" rel="stylesheet" href="assets/css/jquery.mobile.td.custom.css">
 
-		<div id="welcome" class="view">
-		  <div class="app_button" id="map_button">Show My Location</div>
-  	      <div class="app_button" id="settings_button">Settings</div>
-		</div>
+        <script type="text/javascript" charset="utf-8" src="phonegap.js" type="text/javascript" charset="utf-8"></script>
+        <script type="text/javascript" charset="utf-8" src="assets/js/jquery-1.7.1.min.js"></script>
+        <script type="text/javascript" charset="utf-8" src="assets/js/jquery.mobile.td.mobileinit.js"></script>
+        <script type="text/javascript" charset="utf-8" src="assets/js/jquery.mobile.ios-orientationchange-fix.min.js"></script>
+        <script type="text/javascript" charset="utf-8" src="assets/js/jquery.mobile-1.1.1.min.js"></script>
+        <script type="text/javascript" charset="utf-8" src="assets/js/jquery.mobile.td.custom.js"></script>        
+    </head>
+    <body>
+        <div data-role="page" data-url="">
 
-		<div id="map" class="view">
-		  <div class="map_image">
-              <img id="static_map" src="assets/img/staticmap.png">
-		  </div>
-		  <p>This is where you are</p>
-		  <div class="app_button" id="welcome_button">Go Back</div>
-		</div>
+            <div data-role="header" data-position="inline" class="ui-header ui-bar-a" role="banner">
+                <div class="logo-container">
+                    <a href="iniciar" class="ui-link" name="TuDescuentón.com"></a>
+                    <div class="logo-header"></div>
+                </div>
+                <a id="button-home" href="iniciar"
+                      data-icon="home" accesskey="1" data-position="left">Inicio</a>
+                <a id="button-back" href="cerrar; ?>"
+                      data-icon="delete" accesskey="2" data-position="right">Salir</a>
+                <div data-role="navbar"></div>
+            </div>
 
-		<div id="settings" class="view">
-		  <form id="settings_form">
-		    <fieldset>
-		      <legend>Map Type</legend>
-			  <input type="radio" name="map" value="roadmap" checked>Road Map<br/>
-		      <input type="radio" name="map" value="satellite">Satellite<br/>
-		      <input type="radio" name="map" value="terrain">Terrain<br/>
-		      <input type="radio" name="map" value="hybrid">Hybrid<br/>
-		    </fieldset>
-		    <fieldset>
-		      <legend>Zoom Level</legend>
-  		      <input type="radio" name="zoom" value="10">Super Far<br/>
-  		      <input type="radio" name="zoom" value="12">Far<br/>
-  		      <input type="radio" name="zoom" value="15" checked>Normal<br/>
-  		      <input type="radio" name="zoom" value="18">Close<br/>
-  		      <input type="radio" name="zoom" value="20">Super Close<br/>
-  		     </fieldset>
-		      <button id="save_button">Save</button>
-	      </form>
-		</div>
+            <div data-role="messages">
+                    <div class="ui-bar ui-bar-b ui-corner-all">
+                        <h3>Mensaje</h3>
+                        <a href="#" data-role="button" data-icon="delete"
+                           class="btn-close-message center-wrapper">Ocultar</a>
+                    </div>
+                    <div class="ui-bar ui-bar-b ui-corner-all">
+                        <h3>Error</h3>
+                        <a href="#" data-role="button" data-icon="delete"
+                           class="btn-close-message center-wrapper">Ocultar</a>
+                    </div>
+            </div>
 
-	</body>
+            <div data-role="content">                
+                <h2>Acceso de Usuarios</h2>
+                    <div data-role="fieldcontain">
+                            <label for="email">Usuario:</label>
+                            
+                    </div>
+                    <div data-role="fieldcontain">
+                            <label for="password">Contraseña:</label>
+                             
+                    </div>
+                    <fieldset class="ui-grid-a">
+                            <div class="ui-block-a">
+                             
+                            </div>
+                            <div class="ui-block-b">
+                             
+                            </div>
+                    </fieldset>                
+            </div>
+
+            <div data-role="footer">
+                <div data-role="navbar">
+                    <ul><li>
+                            <a href="<?php echo $this->alternative_url; ?>"
+                               rel="external">Ir a versión de escritorio</a>
+                    </li></ul>
+                </div>
+                <h3>&copy; 2012 - TuDescuentón.com</h3>
+            </div>
+        </div> <!-- Closes the page -->
+    </body>
 </html>
+
+
+            
