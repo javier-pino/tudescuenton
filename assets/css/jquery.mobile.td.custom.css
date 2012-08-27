@@ -5,21 +5,21 @@
 div.logo-container {
     text-align: center;
     width: auto;
-    margin: 0.2em 50px 0.2em 50px;
+    margin: 0.2em 50px 0em 50px;
 }
 
 div.logo-header  {
     background-repeat: no-repeat;
     background-position: 0 0;
     display: inline-block;
-    width: 116px;
-    height: 53px;
+    width: 57px;
+    height: 50px;
     background: url(img/logoTD_mini.png);
-    -webkit-background-size: 116px 53px;
-    -moz-background-size: 116px 53px;
-    -o-background-size: 116px 53px;
-    -ms-background-size: 116px 53px;
-    background-size: 116px 53px;
+    -webkit-background-size: 57px 50px;
+    -moz-background-size: 57px 50px;
+    -o-background-size: 57px 50px;
+    -ms-background-size: 57px 50px;
+    background-size: 57px 50px;
 }
 
 a#button-home, a#button-back {
