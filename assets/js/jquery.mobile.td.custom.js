@@ -5,35 +5,22 @@
 
 //Se asocian los eventos necesarios
 $(document).live("pageinit", function(event){
-        
+            
     //Se asocian los eventos necesarios        
     $('a[data-role="button"]', 'div.ui-bar').live('click', function () {
-        $(this).parents('div.ui-bar').remove();        
-    });
-
-    //Se manejan los eventos de swipe en listar cupones
-    //Tomado de http://www.andymatthews.net/read/2011/02/18/Adding-iPhone-style-swipe-to-delete-button-to-a-listview-component-in-jQuery-Mobile
-    $('div.coupon_mark_link h3').swiperight(function () {
-            $('.aDeleteBtn').remove();
-
-            // Create buttons and div container
-            var $aDeleteBtn = $('<a>Marcar</a>')
-                .attr({
-                        'class': 'aDeleteBtn ui-btn-up-r',
-                        'href': $(this).attr('data-page')
+        $(this).parents('div.ui-bar').remove(); 
+        
+        var current= TBL_User.all() ;
+        current.list(null, function (results) {
+            results.forEach(function (r) {
+                alert(r.path);
+                alert(r.data);
             });
-            $(this).append($aDeleteBtn);
-         }       
-    );
-
-    $('div.coupon_mark_link h3').swipeleft(function () {        
-        $('.aDeleteBtn').remove();
+        });
+        
+        
     });
-
-    $('.aDeleteBtn').click(function (event) {        
-        event.stopPropagation();
-    });
-
+   
     //Cambia Municipio en caso de que se modifique ciudades
     $('select#city_id').change(function () {
 
@@ -50,7 +37,46 @@ $(document).live("pageinit", function(event){
     $('input,textarea').focus(function () {
         $(this).removeAttr('placeholder');       
     });
-    
-
+        
     window.scrollTo(0, 0);    
+    
+    //Preparar persistencia
+    prepare_database('tudescuenton', 
+        'Base de datos de persistencia para la app movil', 5 * 1024 * 1024); 
+    
+    
+    //Realizar prueba de persistencia
+    var user = new TBL_User();
+    user.path = '192.168.1.10';
+    user.data = 'Esta es la data';
+    persistence.add(user);
+    persistence.flush();
+    
 });
+
+//Declarar las tablas necesarias
+var TBL_User = null;
+
+/** Prepara la persistencia y la base de datos */
+function prepare_database (database, description, time) {
+    
+    //Se configura la persistencia
+    if (window.openDatabase) { //Se carga la base de datos        
+        persistence.store.websql.config(persistence, database, description, time);        
+    } else { //Usa la memoria
+        persistence.store.memory.config(persistence);
+    }      
+    persistence.debug = false;
+    
+    //Definir las tablas
+    TBL_User = persistence.define('User', {
+        path: "TEXT",
+        data: "TEXT"        
+    });               
+    persistence.schemaSync(); //Configura la base de datos inicial
+}
+
+/** Elimina las tablas de tu descuenton */
+function remove_database () {
+    persistence.reset();    
+}

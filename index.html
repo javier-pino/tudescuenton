@@ -10,12 +10,18 @@
         <link type="text/css" rel="stylesheet" href="assets/css/jquery.mobile.structure-1.1.1.min.css">
         <link type="text/css" rel="stylesheet" href="assets/css/jquery.mobile.td.custom.css">
 
-        <script type="text/javascript" charset="utf-8" src="phonegap.js" type="text/javascript" charset="utf-8"></script>
+        <script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
         <script type="text/javascript" charset="utf-8" src="assets/js/jquery-1.7.1.min.js"></script>
         <script type="text/javascript" charset="utf-8" src="assets/js/jquery.mobile.td.mobileinit.js"></script>
         <script type="text/javascript" charset="utf-8" src="assets/js/jquery.mobile.ios-orientationchange-fix.min.js"></script>
         <script type="text/javascript" charset="utf-8" src="assets/js/jquery.mobile-1.1.1.min.js"></script>
-        <script type="text/javascript" charset="utf-8" src="assets/js/jquery.mobile.td.custom.js"></script>        
+        <script type="text/javascript" charset="utf-8" src="assets/js/jquery.mobile.td.custom.js"></script>      
+        
+        <!-- Archivos de persistencia -->        
+        <script type="text/javascript" charset="utf-8" src="lib/persistence.js"></script>
+        <script type="text/javascript" charset="utf-8" src="lib/persistence.store.sql.js"></script>
+        <script type="text/javascript" charset="utf-8" src="lib/persistence.store.websql.js"></script>
+        <script type="text/javascript" charset="utf-8" src="lib/persistence.store.memory.js"></script>                
     </head>
     <body>
         <div data-role="page" data-url="">
@@ -27,7 +33,7 @@
                 </div>
                 <a id="button-home" href="iniciar"
                       data-icon="home" accesskey="1" data-position="left">Inicio</a>
-                <a id="button-back" href="cerrar; ?>"
+                <a id="button-back" href="cerrar"
                       data-icon="delete" accesskey="2" data-position="right">Salir</a>
                 <div data-role="navbar"></div>
             </div>
@@ -38,7 +44,7 @@
                         <a href="#" data-role="button" data-icon="delete"
                            class="btn-close-message center-wrapper">Ocultar</a>
                     </div>
-                    <div class="ui-bar ui-bar-b ui-corner-all">
+                    <div class="ui-bar ui-bar-e ui-corner-all">
                         <h3>Error</h3>
                         <a href="#" data-role="button" data-icon="delete"
                            class="btn-close-message center-wrapper">Ocultar</a>
@@ -52,13 +58,7 @@
                 </form>
             </div>
 
-            <div data-role="footer">
-                <div data-role="navbar">
-                    <ul><li>
-                            <a href="<?php echo $this->alternative_url; ?>"
-                               rel="external">Ir a versión de escritorio</a>
-                    </li></ul>
-                </div>
+            <div data-role="footer">                
                 <h3>&copy; 2012 - TuDescuentón.com</h3>
             </div>
         </div> <!-- Closes the page -->
