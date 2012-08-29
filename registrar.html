@@ -9,21 +9,13 @@
         <link type="text/css" rel="stylesheet" href="assets/css/jquery.mobile.td.theme-1.1.1.min.css">
         <link type="text/css" rel="stylesheet" href="assets/css/jquery.mobile.structure-1.1.1.min.css">
         <link type="text/css" rel="stylesheet" href="assets/css/jquery.mobile.td.custom.css">       
-        
-        <script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
-        <script type="text/javascript" charset="utf-8" src="assets/js/jquery-1.7.1.min.js"></script>
-        <script type="text/javascript" charset="utf-8" src="assets/js/jquery.mobile.td.mobileinit.js"></script>
-        <script type="text/javascript" charset="utf-8" src="assets/js/jquery.mobile.ios-orientationchange-fix.min.js"></script>
-        <script type="text/javascript" charset="utf-8" src="assets/js/jquery.mobile-1.1.1.min.js"></script>        
-        
     </head>
     <body>
-        <div id="iniciar" data-role="page" data-title="Iniciar Sesión">            
+        <div id="registrar" data-role="page" data-title="Iniciar Sesión">            
             <div data-role="header" data-position="inline" class="ui-header ui-bar-a" role="banner">
                 <div class="logo-container">
-                    <a href="#" id="testing_user" class="ui-link" name="TuDescuentón.com">
-                        <div class="logo-header"></div>                        
-                    </a>                    
+                    <a href="iniciar" class="ui-link" name="TuDescuentón.com"></a>
+                    <div class="logo-header"></div>
                 </div>
                 <a id="button-home" href="iniciar"
                       data-icon="home" accesskey="1" data-position="left">Inicio</a>
@@ -33,21 +25,21 @@
             </div>
 
             <div data-role="messages">
-                    <div id="info_message" class="ui-bar ui-bar-b ui-corner-all">
-                        <h3></h3>
+                    <div class="ui-bar ui-bar-b ui-corner-all">
+                        <h3>Mensaje</h3>
                         <a href="#" data-role="button" data-icon="delete"
                            class="btn-close-message center-wrapper">Ocultar</a>
                     </div>
-                    <div id="error_message" class="ui-bar ui-bar-e ui-corner-all">
-                        <h3></h3>
+                    <div class="ui-bar ui-bar-e ui-corner-all">
+                        <h3>Error</h3>
                         <a href="#" data-role="button" data-icon="delete"
                            class="btn-close-message center-wrapper">Ocultar</a>
                     </div>
             </div>
     
             <div data-role="content">                                
-                <form id="iniciar_sesion" method="get" 
-                      class='ui-body ui-body-b ui-corner-all' data-ajax="false">                    
+                <form action="" id="iniciar_sesion" class='ui-body ui-body-b ui-corner-all' 
+                      data-ajax = 'false'>                    
                     <h2>Acceso de Usuarios</h2>
                     <div data-role="fieldcontain">
                         <label for="email">Usuario:</label>
@@ -74,7 +66,12 @@
                 <h3>&copy; 2012 - TuDescuentón.com</h3>
             </div>
         </div> <!-- Closes the page -->
-                
+        
+        <script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
+        <script type="text/javascript" charset="utf-8" src="assets/js/jquery-1.7.1.min.js"></script>
+        <script type="text/javascript" charset="utf-8" src="assets/js/jquery.mobile.td.mobileinit.js"></script>
+        <script type="text/javascript" charset="utf-8" src="assets/js/jquery.mobile.ios-orientationchange-fix.min.js"></script>
+        <script type="text/javascript" charset="utf-8" src="assets/js/jquery.mobile-1.1.1.min.js"></script>        
         <script type="text/javascript" charset="utf-8" src="lib/persistence.js"></script>
         <script type="text/javascript" charset="utf-8" src="lib/persistence.store.sql.js"></script>
         <script type="text/javascript" charset="utf-8" src="lib/persistence.store.websql.js"></script>
@@ -82,3 +79,6 @@
         <script type="text/javascript" charset="utf-8" src="assets/js/jquery.mobile.td.custom.js"></script>                             
     </body>
 </html>
+
+
+            
