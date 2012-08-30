@@ -74,9 +74,7 @@ $('#registrar').bind('pageinit', function () {
 
 /** Funcion que valida el input */
 function iniciar_submit() {
-    
-    alert('Iniciar submit');
-    
+
     clearMessages();
         
     var email = $("input#email", 'form#iniciar_sesion').val();
