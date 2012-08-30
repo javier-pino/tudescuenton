@@ -110,21 +110,20 @@ function iniciar_submit() {
                 
                 TBL_User.all().one(null, function (one) {                    
                     
-                    if (one != null) {
-                        
-                        persistence.remove(one);                    
-                        var user = new TBL_User();
-                        user.user_id = json.user.id;
-                        user.email = json.user.email;
-                        user.gender = json.user.gender;
-                        user.cedula = json.user.cedula;
-                        user.realname = json.user.realname;
-                        persistence.add(user);
+                    if (one != null) {                        
+                        persistence.remove(one);  
+                    }                                     
+                    var user = new TBL_User();                        
+                    user.user_id = json.user.id;
+                    user.email = json.user.email;
+                    user.gender = json.user.gender;
+                    user.cedula = json.user.cedula;
+                    user.realname = json.user.realname;
+                    persistence.add(user);
 
-                        persistence.flush(null, function () {
-                            $.mobile.hidePageLoadingMsg ();                                                              
-                        });
-                    }                    
+                    persistence.flush(null, function () {
+                        $.mobile.hidePageLoadingMsg ();                                                              
+                    });
                     
                 });                
              } else {
