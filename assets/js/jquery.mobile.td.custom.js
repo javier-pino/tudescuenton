@@ -1,6 +1,6 @@
 //This is used to handle multiple submits events
 var lock = false;
-var server = 'http://192.168.1.118';
+var server = 'http://192.168.1.102';
 //Se asocian los eventos necesarios para TODAS LAS PAGINAS
 function prepare_initial_binds() {
       
@@ -28,14 +28,10 @@ function prepare_initial_binds() {
         
         alert('Usuario Almacenado');
         //Buscar al usuario logueado
-        var current= TBL_User.all() ;
-        current.list(null, function (results) {
-            results.forEach(function (r) {
-                alert(r.realname);
-                alert(r.email);                
-            });
-        });
-        
+        TBL_User.all().one(null, function (one) {                
+                alert(one.realname);
+                alert(one.email);                    
+        }) ;        
     });
     
 }
@@ -87,7 +83,6 @@ function iniciar_submit() {
     
     alert('Iniciar submit');
     
-    
     clearMessages();
         
     var email = $("input#email", 'form#iniciar_sesion').val();
@@ -117,26 +112,18 @@ function iniciar_submit() {
                     'Bienvenid@, ' + json.user.realname +
                     ', ingresaste exitosamente usando tu correo: ' + json.user.email);                
                 
-                var current= TBL_User.all() ;
-                current.list(null, function (results) {
-                    results.forEach(function (r) {
-                        persistence.remove(r);                                 
-                    });
-                });
-                persistence.flush(
-                    null, function() {                        
-                        //Almacenar el usuario registrado
-                        var user = new TBL_User();
-                        user.user_id = json.user.id;
-                        user.email = json.user.email;
-                        user.gender = json.user.gender;
-                        user.cedula = json.user.cedula;
-                        user.realname = json.user.realname;
-                        persistence.add(user);
-                        persistence.flush();
-                        
-                        $.mobile.hidePageLoadingMsg ();          
-                    });                                  
+                TBL_User.all().one(null, function (one) {                    
+                    persistence.remove(one);                                                                             
+                    var user = new TBL_User();
+                    user.user_id = json.user.id;
+                    user.email = json.user.email;
+                    user.gender = json.user.gender;
+                    user.cedula = json.user.cedula;
+                    user.realname = json.user.realname;
+                    persistence.add(user);
+                    persistence.flush();
+                    $.mobile.hidePageLoadingMsg ();                                  
+                });                
              } else {
                  setErrorMessage(json.message);
                  $.mobile.hidePageLoadingMsg ();          
@@ -157,7 +144,7 @@ var TBL_User = null;
 /** Prepara la persistencia y la base de datos */
 function prepare_database (database, description, time) {
     
-    alert('Prepared database');
+    alert('Prepared ');
     
     //Se configura la persistencia
     if (window.openDatabase) { //Se carga la base de datos        
