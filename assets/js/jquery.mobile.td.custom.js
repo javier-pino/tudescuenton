@@ -3,7 +3,9 @@ var lock = false;
 var server = 'http://192.168.1.118';
 //Se asocian los eventos necesarios para TODAS LAS PAGINAS
 function prepare_initial_binds() {
-                
+      
+     alert('Initial binds'); 
+      
     //Se asocian los eventos necesarios        
     $('a[data-role="button"]', 'div.ui-bar').live('click', function () {
         $(this).parent().hide(); 
@@ -41,6 +43,8 @@ function prepare_initial_binds() {
 //Los eventos necesarios para la página de iniciar
 $('#iniciar').bind('pageinit', function () {
     
+    alert('Iniciar');
+    
     prepare_initial_binds();
     
     $('form#iniciar_sesion').live('submit', function (event) { 
@@ -58,6 +62,8 @@ $('#iniciar').bind('pageinit', function () {
 
 //Los eventos necesarios para la página...
 $('#registrar').bind('pageinit', function () {
+    
+    alert('Registrar binds');
     
     prepare_initial_binds();
         
@@ -78,6 +84,9 @@ $('#registrar').bind('pageinit', function () {
 
 /** Funcion que valida el input */
 function iniciar_submit() {
+    
+    alert('Iniciar submit');
+    
     
     clearMessages();
         
@@ -147,6 +156,8 @@ var TBL_User = null;
 
 /** Prepara la persistencia y la base de datos */
 function prepare_database (database, description, time) {
+    
+    alert('Prepared database');
     
     //Se configura la persistencia
     if (window.openDatabase) { //Se carga la base de datos        
