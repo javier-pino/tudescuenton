@@ -2,8 +2,8 @@
 <widget xmlns		= "http://www.w3.org/ns/widgets"
 	xmlns:gap	= "http://phonegap.com/ns/1.0"
 	id		= "com.tudescuenton.movil"
-	version 	= "1.3.6"
-        versionCode     = "12"
+	version 	= "1.3.7"
+        versionCode     = "13"
 >
 	<name>TuDescuenton.com - Reservas</name>
 
@@ -31,7 +31,6 @@
 
         <gap:splash src="assets/splash/icon.png" gap:platform="blackberry" />
 
-
 	<feature name="http://api.phonegap.com/1.0/geolocation"/>
 	<feature name="http://api.phonegap.com/1.0/network"/>
 
@@ -43,6 +42,15 @@
         <preference name="stay-in-webview" value="true" />
         <preference name="exit-on-suspend" value="false" />
 
+        <rim:connection timeout="6000">
+            <id>BIS-B</id>
+            <id>TCP_WIFI</id>
+            <id>TCP_CELLULAR</id>
+            <id>MDS</id>
+            <id>WAP2</id>
+            <id>WAP</id>
+        </rim:connection>
+        
         <access />
 
 </widget>

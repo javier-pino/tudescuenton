@@ -17,8 +17,6 @@ function prepare_initial_binds() {
     prepare_database('neo_descuenton', 
         'Base de datos de persistencia para la app movil', 5 * 1024 * 1024); 
    
-    window.scrollTo(0, 0);    
-    
     //Probar la base de datos
     $('#testing_user').live('click', function(event) {
         
@@ -35,6 +33,8 @@ function prepare_initial_binds() {
             }                
         }) ;        
     });
+    
+    window.scrollTo(0, 0);    
     
 }
 
@@ -177,12 +177,14 @@ function remove_database () {
 function setErrorMessage(text) {        
     $('div#error_message h3').append('<p>' + text + '</p>');
     $('div#error_message').show();
+    window.scrollTo(0, 0);
 }
 
 /** Permite declarar mensajes informativos */
 function setInfoMessage(text) {
     $('div#info_message h3').append('<p>' + text + '</p>');
     $('div#info_message').show();
+    window.scrollTo(0, 0);
 }
 
 function clearMessages() {
