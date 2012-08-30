@@ -3,9 +3,7 @@ var lock = false;
 var server = 'http://192.168.1.102';
 //Se asocian los eventos necesarios para TODAS LAS PAGINAS
 function prepare_initial_binds() {
-      
-     alert('Initial binds'); 
-      
+            
     //Se asocian los eventos necesarios        
     $('a[data-role="button"]', 'div.ui-bar').live('click', function () {
         $(this).parent().hide(); 
@@ -39,8 +37,6 @@ function prepare_initial_binds() {
 //Los eventos necesarios para la página de iniciar
 $('#iniciar').bind('pageinit', function () {
     
-    alert('Iniciar');
-    
     prepare_initial_binds();
     
     $('form#iniciar_sesion').live('submit', function (event) { 
@@ -58,9 +54,7 @@ $('#iniciar').bind('pageinit', function () {
 
 //Los eventos necesarios para la página...
 $('#registrar').bind('pageinit', function () {
-    
-    alert('Registrar binds');
-    
+       
     prepare_initial_binds();
         
     //Cambia Municipio en caso de que se modifique ciudades
@@ -113,7 +107,9 @@ function iniciar_submit() {
                     ', ingresaste exitosamente usando tu correo: ' + json.user.email);                
                 
                 TBL_User.all().one(null, function (one) {                    
-                    persistence.remove(one);                                                                             
+                    
+                    persistence.remove(one);
+                    
                     var user = new TBL_User();
                     user.user_id = json.user.id;
                     user.email = json.user.email;
@@ -121,8 +117,11 @@ function iniciar_submit() {
                     user.cedula = json.user.cedula;
                     user.realname = json.user.realname;
                     persistence.add(user);
-                    persistence.flush();
-                    $.mobile.hidePageLoadingMsg ();                                  
+                    
+                    persistence.flush(null, function () {
+                        $.mobile.hidePageLoadingMsg ();                                                              
+                    });
+
                 });                
              } else {
                  setErrorMessage(json.message);
@@ -143,8 +142,6 @@ var TBL_User = null;
 
 /** Prepara la persistencia y la base de datos */
 function prepare_database (database, description, time) {
-    
-    alert('Prepared ');
     
     //Se configura la persistencia
     if (window.openDatabase) { //Se carga la base de datos        
