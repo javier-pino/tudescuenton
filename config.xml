@@ -41,15 +41,6 @@
         <preference name="fullscreen" value="true" />
         <preference name="stay-in-webview" value="true" />
         <preference name="exit-on-suspend" value="false" />
-
-        <rim:connection timeout="6000">
-            <id>BIS-B</id>
-            <id>TCP_WIFI</id>
-            <id>TCP_CELLULAR</id>
-            <id>MDS</id>
-            <id>WAP2</id>
-            <id>WAP</id>
-        </rim:connection>
         
         <access />
 
