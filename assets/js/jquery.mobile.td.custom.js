@@ -98,6 +98,11 @@ function iniciar_submit() {
     
     request.onreadystatechange = function() { 
         if (request.readyState == 4) {
+            
+            alert('time');
+            alert('time ' +request.readyState);
+            alert('time ' +request.responseText);
+            
             if (request.status == 200 || request.status == 0) {
                                 
                 var json = null;
@@ -141,13 +146,17 @@ function iniciar_submit() {
     request.send();
     
     //Establecer el timeout
-    var xmlHttpTimeout = setTimeout('ajaxTimeout(request)', 1000);  
+    var xmlHttpTimeout = setTimeout('ajaxTimeout(request)', 5000);  
 }
 
 /** Cierra una peticion si no es  posible conectarse*/
 var request = null;
-function ajaxTimeout(request){       
-    if (request.readyState != 4 ) {                 
+function ajaxTimeout(request){   
+    alert('timeout');
+    alert('timeout ' +request.readyState);
+    alert('timeout ' +request.responseText);
+    if (request.readyState < 4 ) { 
+        alert('I will kill myself');
         request.abort();        
         setErrorMessage('No se pudo conectar a TuDescuentón. Intente más tarde');            
         $.mobile.hidePageLoadingMsg ();                
