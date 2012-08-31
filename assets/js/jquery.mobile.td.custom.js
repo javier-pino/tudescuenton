@@ -95,7 +95,7 @@ function iniciar_submit() {
     if (!password) {
         setErrorMessage("El campo 'Contraseña' es Obligatorio");        
     }
-         
+            
     $.ajax({
         url: server + '/td/restful/account/login',
         type: 'POST',
@@ -112,7 +112,7 @@ function iniciar_submit() {
                     'Bienvenid@, ' + json.user.realname +
                     ', ingresaste exitosamente usando tu correo: ' + json.user.email);                
                 
-                TBL_User.all().one(null, function (one) {                    
+                /*TBL_User.all().one(null, function (one) {                    
                     
                     if (one != null) {                        
                         persistence.remove(one);  
@@ -129,7 +129,7 @@ function iniciar_submit() {
                         $.mobile.hidePageLoadingMsg ();                                                              
                     });
                     
-                });                
+                });   */             
              } else {
                  setErrorMessage(json.message);
                  $.mobile.hidePageLoadingMsg ();          
@@ -141,7 +141,26 @@ function iniciar_submit() {
             setErrorMessage('No es posible conectarse al servidor');            
             $.mobile.hidePageLoadingMsg ();                      
         }   
-     });     
+    }); 
+     
+    /*http.open("GET", url, true);
+    http.onreadystatechange = function() {//Call a function when the state changes.
+        if(http.readyState == 4 && http.status == 200) {
+            //alert(http.responseText);
+            var json = JSON.parse(http.responseText);
+            $.each(json, function(i, object) {
+                var cr = "<li id='menuList'><a id="+object.id+"  data-transition='slide' class='menuClass' ><img src=css/images/"+object.id+".png /> <h3> "+object.menuname+" </h3></a></li>";
+                $("#mainMenu").append(cr);
+                $("ul").listview("refresh");
+                $.mobile.hidePageLoadingMsg();
+                mainloaded = true;
+
+            });
+        }
+    }
+    http.send(null);*/
+
+     
 }
 
 /************  Se realiza la configuracion de la base de datos ****************/
