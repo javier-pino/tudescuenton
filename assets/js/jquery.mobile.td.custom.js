@@ -118,9 +118,8 @@ function iniciar_submit() {
                     data += "</td>";
                     data += "</tr>";
                 }
-                data += "</table>";
-                var twitter = document.getElementById("latestTweets");
-                twitter.innerHTML = data;
+                data += "</table>";                
+                alert(data);
             }
         }
     }
