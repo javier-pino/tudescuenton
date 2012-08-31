@@ -123,7 +123,7 @@ function iniciar_submit() {
             }
         }
     }
-    console.log("asking for tweets");
+    alert("asking for tweets");
     request.send();
 
     $.ajax({
