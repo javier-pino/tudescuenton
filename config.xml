@@ -37,11 +37,11 @@
         <feature name="http://api.phonegap.com/1.0/camera"/>
         <feature name="http://api.phonegap.com/1.0/contacts"/>
         <feature name="http://api.phonegap.com/1.0/notification"/>
-        
+                        
         <preference name="fullscreen" value="true" />
         <preference name="stay-in-webview" value="true" />
         <preference name="exit-on-suspend" value="false" />
         
-        <access subdomains="true" uri="http://192.168.1.102" />
+        <access subdomains="true" origin="http://192.168.1.102" />
 
 </widget>
