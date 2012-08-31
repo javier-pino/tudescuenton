@@ -109,7 +109,7 @@ function iniciar_submit() {
                     'Bienvenid@, ' + json.user.realname +
                     ', ingresaste exitosamente usando tu correo: ' + json.user.email);                
                 
-                /*TBL_User.all().one(null, function (one) {                    
+                TBL_User.all().one(null, function (one) {                    
                     
                     if (one != null) {                        
                         persistence.remove(one);  
@@ -126,7 +126,7 @@ function iniciar_submit() {
                         $.mobile.hidePageLoadingMsg ();                                                              
                     });
                     
-                });   */             
+                });             
              } else {
                  setErrorMessage(json.message);
                  $.mobile.hidePageLoadingMsg ();          
