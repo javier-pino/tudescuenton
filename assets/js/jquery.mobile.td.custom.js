@@ -95,7 +95,7 @@ function iniciar_submit() {
             
     $.ajax({
         url: server + '/td/restful/account/login',
-        type: 'POST',
+        type: 'get',
         data:  {
             email: email,
             password: password          
