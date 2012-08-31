@@ -8,6 +8,7 @@
 	the jQuery Mobile javascript file.
 */
 $(document).bind('mobileinit', function(event){
-	$.mobile.loadingMessage = "Cargando ...";        
+	$.mobile.loadingMessage = "Cargando ...";
+        $.mobile.allowCrossDomainPages = true;        
         $.mobile.pageLoadErrorMessage = "Error al cargar la página";        
 });
