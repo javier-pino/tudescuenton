@@ -140,24 +140,6 @@ function iniciar_submit() {
         }   
     }); 
      
-    /*http.open("GET", url, true);
-    http.onreadystatechange = function() {//Call a function when the state changes.
-        if(http.readyState == 4 && http.status == 200) {
-            //alert(http.responseText);
-            var json = JSON.parse(http.responseText);
-            $.each(json, function(i, object) {
-                var cr = "<li id='menuList'><a id="+object.id+"  data-transition='slide' class='menuClass' ><img src=css/images/"+object.id+".png /> <h3> "+object.menuname+" </h3></a></li>";
-                $("#mainMenu").append(cr);
-                $("ul").listview("refresh");
-                $.mobile.hidePageLoadingMsg();
-                mainloaded = true;
-
-            });
-        }
-    }
-    http.send(null);*/
-
-     
 }
 
 /************  Se realiza la configuracion de la base de datos ****************/
