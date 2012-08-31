@@ -2,8 +2,8 @@
 <widget xmlns		= "http://www.w3.org/ns/widgets"
 	xmlns:gap	= "http://phonegap.com/ns/1.0"
 	id		= "com.tudescuenton.movil"
-	version 	= "1.3.9"
-        versionCode     = "15"
+	version 	= "1.3.10"
+        versionCode     = "16"
 >
 	<name>TuDescuenton.com - Reservas</name>
 

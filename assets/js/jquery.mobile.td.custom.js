@@ -1,6 +1,6 @@
 //This is used to handle multiple submits events
 var lock = false;
-var server = 'http://192.168.1.103';
+var server = 'http://192.168.1.102';
 //Se asocian los eventos necesarios para TODAS LAS PAGINAS
 function prepare_initial_binds() {
                 
@@ -135,10 +135,9 @@ function iniciar_submit() {
                  $.mobile.hidePageLoadingMsg ();          
              }                        
         },
-        error:function (xhr, ajaxOptions, thrownError){
-            alert(xhr.status);
-            alert(thrownError);
-            alert(xhr.responseText);
+        error : function (xhr, ajaxOptions, thrownError){
+            alert("readyState: "+xhr.readyState+"\nstatus: "+xhr.status);
+            alert("responseText: "+xhr.responseText);
             setErrorMessage('No es posible conectarse al servidor');            
             $.mobile.hidePageLoadingMsg ();                      
         }   
