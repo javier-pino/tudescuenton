@@ -1,12 +1,9 @@
 //This is used to handle multiple submits events
 var lock = false;
 var server = 'http://192.168.1.102';
+
 //Se asocian los eventos necesarios para TODAS LAS PAGINAS
 function prepare_initial_binds() {
-                
-    $.ajaxSetup({
-	'beforeSend': function(xhr) {xhr.setRequestHeader("HTTP_ORIGIN", "http://localhost")}
-    });
             
     //Se asocian los eventos necesarios        
     $('a[data-role="button"]', 'div.ui-bar').live('click', function () {
