@@ -92,89 +92,68 @@ function iniciar_submit() {
         setErrorMessage("El campo 'Contraseña' es Obligatorio");        
     }
        
-    var request = new XMLHttpRequest();
-    request.open("GET", "http://search.twitter.com/search.json?q=phonegap", true);
-    request.onreadystatechange = function() {//Call a function when the state changes.
+    request = new XMLHttpRequest();
+    request.open("GET", server + '/td/restful/account/login' 
+        + '?email=' + email + '&password=' + password, true);
+    
+    request.onreadystatechange = function() { 
         if (request.readyState == 4) {
             if (request.status == 200 || request.status == 0) {
-                var tweets = JSON.parse(request.responseText);
-                var data = "<table cellspacing='0'>";
-                var tableClass;
-                for (i = 0; i < tweets.results.length; i++) {
-                    if (i % 2 == 0) {
-                        tableClass = 'tweetOdd';
-                    }
-                    else {
-                        tableClass = 'tweetEven';
-                    }
-                    data += "<tr style='border: 1px solid black'>";
-                    data += "<td class='" + tableClass + "'>";
-                    data += "<img src='" + tweets.results[i].profile_image_url + "'/>";
-                    data += "</td>";
-                    data += "<td class='" + tableClass + "'>";
-                    data += "<b>" + tweets.results[i].from_user + "</b><br/>";
-                    data += tweets.results[i].text + "<br/>";
-                    data += tweets.results[i].created_at;
-                    data += "</td>";
-                    data += "</tr>";
+                                
+                var json = null;
+                if (request.responseText != null) {
+                    json = JSON.parse(request.responseText);                
                 }
-                data += "</table>";                
-                alert(data);
+
+                if (json != null && json.status) {
+                    setInfoMessage(
+                        'Bienvenid@, ' + json.user.realname +
+                        ', ingresaste exitosamente usando tu correo: ' + json.user.email);                
+
+                    TBL_User.all().one(null, function (one) {                    
+
+                        if (one != null) {                        
+                            persistence.remove(one);  
+                        }                                     
+                        var user = new TBL_User();                        
+                        user.user_id = json.user.id;
+                        user.email = json.user.email;
+                        user.gender = json.user.gender;
+                        user.cedula = json.user.cedula;
+                        user.realname = json.user.realname;
+                        persistence.add(user);
+
+                        persistence.flush(null, function () {
+                            $.mobile.hidePageLoadingMsg ();                                                              
+                        });
+
+                    });             
+                } else {
+                    setErrorMessage(json.message);
+                    $.mobile.hidePageLoadingMsg ();          
+                }                  
+            } else {
+                setErrorMessage('Ocurrió un error al conectarse a TuDescuentón');            
+                $.mobile.hidePageLoadingMsg (); 
             }
         }
-    }
-    alert("asking for tweets");
+    };    
     request.send();
-
-    $.ajax({
-        url: server + '/td/restful/account/login',
-        type: 'get',
-        data:  {
-            email: email,
-            password: password          
-        },
-        dataType : "json",
-        timeout: 6000,
-        success : function (json) {
-
-             if (json.status) {
-                setInfoMessage(
-                    'Bienvenid@, ' + json.user.realname +
-                    ', ingresaste exitosamente usando tu correo: ' + json.user.email);                
-                
-                TBL_User.all().one(null, function (one) {                    
-                    
-                    if (one != null) {                        
-                        persistence.remove(one);  
-                    }                                     
-                    var user = new TBL_User();                        
-                    user.user_id = json.user.id;
-                    user.email = json.user.email;
-                    user.gender = json.user.gender;
-                    user.cedula = json.user.cedula;
-                    user.realname = json.user.realname;
-                    persistence.add(user);
-
-                    persistence.flush(null, function () {
-                        $.mobile.hidePageLoadingMsg ();                                                              
-                    });
-                    
-                });             
-             } else {
-                 setErrorMessage(json.message);
-                 $.mobile.hidePageLoadingMsg ();          
-             }                        
-        },
-        error : function (xhr, ajaxOptions, thrownError){
-            alert("readyState: "+xhr.readyState+"\nstatus: "+xhr.status);
-            alert("responseText: "+xhr.responseText);
-            setErrorMessage('No es posible conectarse al servidor');            
-            $.mobile.hidePageLoadingMsg ();                      
-        }   
-    }); 
-     
+    
+    //Establecer el timeout
+    var xmlHttpTimeout = setTimeout('ajaxTimeout(request)', 1000);  
 }
 
+/** Cierra una peticion si no es  posible conectarse*/
+var request = null;
+function ajaxTimeout(request){       
+    if (request.readyState != 4 ) {                 
+        request.abort();        
+        setErrorMessage('No se pudo conectar a TuDescuentón. Intente más tarde');            
+        $.mobile.hidePageLoadingMsg ();                
+    }
+}
+  
 /************  Se realiza la configuracion de la base de datos ****************/
 
 //Declarar las tablas necesarias
@@ -189,7 +168,7 @@ function prepare_database (database, description, time) {
     } else { //Usa la memoria
         persistence.store.memory.config(persistence);
     }      
-    //persistence.debug = false;
+    persistence.debug = false;
     
     //Definir las tablas
     TBL_User = persistence.define('TBL_User', {
