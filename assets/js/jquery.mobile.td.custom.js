@@ -102,6 +102,7 @@ function iniciar_submit() {
             alert('time');
             alert('time ' +request.readyState);
             alert('time ' +request.responseText);
+            alert('time ' +request.status);
             
             if (request.status == 200 || request.status == 0) {
                                 
@@ -155,6 +156,8 @@ function ajaxTimeout(request){
     alert('timeout');
     alert('timeout ' +request.readyState);
     alert('timeout ' +request.responseText);
+    alert('timeout ' +request.status);
+    
     if (request.readyState < 4 ) { 
         alert('I will kill myself');
         request.abort();        
