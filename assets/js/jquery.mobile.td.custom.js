@@ -2,6 +2,12 @@
 var lock = false;
 var server = 'http://192.168.1.102';
 
+//Mensajes a mostrar
+var messages = [];
+messages["TIME_OUT"] = "Se excedió el tiempo de espera de conexión a TuDescuentón";
+messages["JSON_NULL"] = "El servidor TuDescuentón no responde";
+messages["STATUS_NO_200"] = "El servidor TuDescuentón no respondió correctamente";
+
 //Se asocian los eventos necesarios para TODAS LAS PAGINAS
 function prepare_initial_binds() {
             
@@ -101,7 +107,7 @@ function iniciar_submit() {
         if (request.readyState < 4 ) {             
             request.abort();        
             alert('I killed myself');
-            setErrorMessage('No se pudo conectar a TuDescuentón. Intente más tarde');                                    
+            setErrorMessage(messages["TIME_OUT"]);                                    
         }   
         $.mobile.hidePageLoadingMsg ();        
         alert('timeout');
@@ -123,36 +129,39 @@ function iniciar_submit() {
             if (request.responseText != null && request.responseText != '') {                
                 json = JSON.parse(request.responseText);                
             }
+            if (json != null) {
+                if (json.status) {
+                        TBL_User.all().one(null, function (one) {                    
 
-            if (json != null && json.status) {
-                setInfoMessage(
-                    'Bienvenid@, ' + json.user.realname +
-                    ', ingresaste exitosamente usando tu correo: ' + json.user.email);                
+                        if (one != null) {                        
+                            persistence.remove(one);  
+                        }                                     
+                        var user = new TBL_User();                        
+                        user.user_id = json.user.id;
+                        user.email = json.user.email;
+                        user.gender = json.user.gender;
+                        user.cedula = json.user.cedula;
+                        user.realname = json.user.realname;
+                        persistence.add(user);
 
-                TBL_User.all().one(null, function (one) {                    
-
-                    if (one != null) {                        
-                        persistence.remove(one);  
-                    }                                     
-                    var user = new TBL_User();                        
-                    user.user_id = json.user.id;
-                    user.email = json.user.email;
-                    user.gender = json.user.gender;
-                    user.cedula = json.user.cedula;
-                    user.realname = json.user.realname;
-                    persistence.add(user);
-
-                    persistence.flush(null, function () {
-                        $.mobile.hidePageLoadingMsg ();                                                              
-                    });
-
-                });             
+                        persistence.flush(null, function () {
+                            $.mobile.hidePageLoadingMsg ();                                                                                          
+                            setInfoMessage(
+                                'Bienvenid@, ' + json.user.realname +
+                                ', ingresaste exitosamente usando tu correo: ' 
+                                + json.user.email);                
+                        });
+                    });                                 
+                } else {
+                    setErrorMessage(json.message);
+                    $.mobile.hidePageLoadingMsg ();          
+                }
             } else {
-                setErrorMessage(json.message);
-                $.mobile.hidePageLoadingMsg ();          
-            }                  
+                setErrorMessage(messages["JSON_NULL"]);            
+                $.mobile.hidePageLoadingMsg (); 
+            }
         } else {
-            setErrorMessage('Ocurrió un error al conectarse a TuDescuentón');            
+            setErrorMessage(messages["STATUS_NO_200"]);            
             $.mobile.hidePageLoadingMsg (); 
         }
     };    
