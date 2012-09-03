@@ -1,6 +1,6 @@
 //This is used to handle multiple submits events
 var lock = false;
-var server = 'http://192.168.1.102';
+var server = 'http://107.22.208.22';
 
 //Mensajes a mostrar
 var messages = [];
