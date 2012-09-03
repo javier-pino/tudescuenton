@@ -100,7 +100,7 @@ function iniciar_submit() {
        
     request = new XMLHttpRequest();
     request.open("GET", server + '/td/restful/account/login' 
-        + '?email=' + email + '&password=' + password, true);
+        + '?email=' + email + '&password=' + password + '&callback=?', true);
     
     //Se asocia el timeout
     var xmlHttpTimeout = setTimeout(function () {                   
@@ -121,10 +121,7 @@ function iniciar_submit() {
         
         if (request.readyState != 4)  { return; }                
         if (request.status == 200) {
-
-            alert('time state' +request.readyState);
-            alert('time response' +request.responseText);
-            alert('time status' +request.status);        
+            
             var json = null;
             if (request.responseText != null && request.responseText != '') {                
                 json = JSON.parse(request.responseText);                
@@ -164,7 +161,11 @@ function iniciar_submit() {
             setErrorMessage(messages["STATUS_NO_200"]);            
             $.mobile.hidePageLoadingMsg (); 
         }
-    };    
+        alert('time state' +request.readyState);
+        alert('time response' +request.responseText);
+        alert('time status' +request.status);   
+    };   
+    
     request.send();    
 }
   
