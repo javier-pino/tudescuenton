@@ -96,74 +96,67 @@ function iniciar_submit() {
     request.open("GET", server + '/td/restful/account/login' 
         + '?email=' + email + '&password=' + password, true);
     
-    request.onreadystatechange = function() { 
-        if (request.readyState == 4) {
-            
-            alert('time');
-            alert('time ' +request.readyState);
-            alert('time ' +request.responseText);
-            alert('time ' +request.status);
-            
-            if (request.status == 200 || request.status == 0) {
-                                
-                var json = null;
-                if (request.responseText != null) {
-                    json = JSON.parse(request.responseText);                
-                }
+    //Se asocia el timeout
+    var xmlHttpTimeout = setTimeout(function () {                   
+        if (request.readyState < 4 ) {             
+            request.abort();        
+            alert('I killed myself');
+            setErrorMessage('No se pudo conectar a TuDescuentón. Intente más tarde');                                    
+        }   
+        $.mobile.hidePageLoadingMsg ();        
+        alert('timeout');
+        alert('timeout STATE ' +request.readyState);
+        alert('timeout RESPONSE ' +request.responseText);
+        alert('timeout STATUS ' +request.status);        
+    }, 5000);  
 
-                if (json != null && json.status) {
-                    setInfoMessage(
-                        'Bienvenid@, ' + json.user.realname +
-                        ', ingresaste exitosamente usando tu correo: ' + json.user.email);                
+    //Se asocia el 
+    request.onreadystatechange = function() {
+        
+        if (request.readyState != 4)  { return; }                
+        if (request.status == 200) {
 
-                    TBL_User.all().one(null, function (one) {                    
-
-                        if (one != null) {                        
-                            persistence.remove(one);  
-                        }                                     
-                        var user = new TBL_User();                        
-                        user.user_id = json.user.id;
-                        user.email = json.user.email;
-                        user.gender = json.user.gender;
-                        user.cedula = json.user.cedula;
-                        user.realname = json.user.realname;
-                        persistence.add(user);
-
-                        persistence.flush(null, function () {
-                            $.mobile.hidePageLoadingMsg ();                                                              
-                        });
-
-                    });             
-                } else {
-                    setErrorMessage(json.message);
-                    $.mobile.hidePageLoadingMsg ();          
-                }                  
-            } else {
-                setErrorMessage('Ocurrió un error al conectarse a TuDescuentón');            
-                $.mobile.hidePageLoadingMsg (); 
+            alert('time state' +request.readyState);
+            alert('time response' +request.responseText);
+            alert('time status' +request.status);        
+            var json = null;
+            if (request.responseText != null && request.responseText != '') {                
+                json = JSON.parse(request.responseText);                
             }
+
+            if (json != null && json.status) {
+                setInfoMessage(
+                    'Bienvenid@, ' + json.user.realname +
+                    ', ingresaste exitosamente usando tu correo: ' + json.user.email);                
+
+                TBL_User.all().one(null, function (one) {                    
+
+                    if (one != null) {                        
+                        persistence.remove(one);  
+                    }                                     
+                    var user = new TBL_User();                        
+                    user.user_id = json.user.id;
+                    user.email = json.user.email;
+                    user.gender = json.user.gender;
+                    user.cedula = json.user.cedula;
+                    user.realname = json.user.realname;
+                    persistence.add(user);
+
+                    persistence.flush(null, function () {
+                        $.mobile.hidePageLoadingMsg ();                                                              
+                    });
+
+                });             
+            } else {
+                setErrorMessage(json.message);
+                $.mobile.hidePageLoadingMsg ();          
+            }                  
+        } else {
+            setErrorMessage('Ocurrió un error al conectarse a TuDescuentón');            
+            $.mobile.hidePageLoadingMsg (); 
         }
     };    
-    request.send();
-    
-    //Establecer el timeout
-    var xmlHttpTimeout = setTimeout('ajaxTimeout(request)', 5000);  
-}
-
-/** Cierra una peticion si no es  posible conectarse*/
-var request = null;
-function ajaxTimeout(request){   
-    alert('timeout');
-    alert('timeout ' +request.readyState);
-    alert('timeout ' +request.responseText);
-    alert('timeout ' +request.status);
-    
-    if (request.readyState < 4 ) { 
-        alert('I will kill myself');
-        request.abort();        
-        setErrorMessage('No se pudo conectar a TuDescuentón. Intente más tarde');            
-        $.mobile.hidePageLoadingMsg ();                
-    }
+    request.send();    
 }
   
 /************  Se realiza la configuracion de la base de datos ****************/
