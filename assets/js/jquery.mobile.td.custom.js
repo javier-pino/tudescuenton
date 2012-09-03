@@ -120,7 +120,7 @@ function iniciar_submit() {
     request.onreadystatechange = function() {
         
         if (request.readyState != 4)  { return; }                
-        if (request.status == 200) {
+        if (request.status == 200 || request.status == 0) {
             
             var json = null;
             if (request.responseText != null && request.responseText != '') {                
