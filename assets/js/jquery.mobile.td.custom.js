@@ -98,22 +98,12 @@ function iniciar_submit() {
         setErrorMessage("El campo 'Contraseña' es Obligatorio");        
     }
     
-    var request;
-    if (window.XMLHttpRequest) {
-        request = new XMLHttpRequest();
-        setErrorMessage("si hay");
-        return        ;
-    } else {
-        setErrorMessage("NO HAY VERGA");        
-        return;
-    }
-       
-    
+    var request = new XMLHttpRequest();    
     request.open("GET", server + '/td/restful/account/login' 
         + '?email=' + email + '&password=' + password, true);
     
     //Se asocia el timeout
-    var xmlHttpTimeout = setTimeout(function () {                   
+    /*var xmlHttpTimeout = setTimeout(function () {                   
         if (request.readyState < 4 ) {             
             request.abort();        
             alert('I killed myself');
@@ -125,14 +115,15 @@ function iniciar_submit() {
         alert('timeout RESPONSE ' +request.responseText);
         alert('timeout STATUS ' +request.status);        
     }, 5000);  
+    */
 
     //Se asocia el 
     request.onreadystatechange = function() {
         
         if (request.readyState != 4)  { return; }                
-        if (request.status == 200 || request.status == 0) {
+        if (request.status == 200) {
             
-            var json = null;
+            /*var json = null;
             if (request.responseText != null && request.responseText != '') {                
                 json = JSON.parse(request.responseText);                
             }
@@ -166,7 +157,7 @@ function iniciar_submit() {
             } else {
                 setErrorMessage(messages["JSON_NULL"]);            
                 $.mobile.hidePageLoadingMsg (); 
-            }
+            }*/
         } else {
             setErrorMessage(messages["STATUS_NO_200"]);            
             $.mobile.hidePageLoadingMsg (); 
