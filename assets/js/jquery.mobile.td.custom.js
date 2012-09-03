@@ -1,6 +1,6 @@
 //This is used to handle multiple submits events
 var lock = false;
-var server = 'http://107.22.208.22';
+var server = 'http://192.168.1.102';
 
 //Mensajes a mostrar
 var messages = [];
@@ -103,19 +103,14 @@ function iniciar_submit() {
         + '?email=' + email + '&password=' + password, true);
     
     //Se asocia el timeout
-    /*var xmlHttpTimeout = setTimeout(function () {                   
+    var xmlHttpTimeout = setTimeout(function () {                   
         if (request.readyState < 4 ) {             
             request.abort();        
             alert('I killed myself');
             setErrorMessage(messages["TIME_OUT"]);                                    
         }   
-        $.mobile.hidePageLoadingMsg ();        
-        alert('timeout');
-        alert('timeout STATE ' +request.readyState);
-        alert('timeout RESPONSE ' +request.responseText);
-        alert('timeout STATUS ' +request.status);        
-    }, 5000);  
-    */
+        $.mobile.hidePageLoadingMsg ();                        
+    }, 5000);      
 
     //Se asocia el 
     request.onreadystatechange = function() {
@@ -123,7 +118,7 @@ function iniciar_submit() {
         if (request.readyState != 4)  { return; }                
         if (request.status == 200) {
             
-            /*var json = null;
+            var json = null;
             if (request.responseText != null && request.responseText != '') {                
                 json = JSON.parse(request.responseText);                
             }
@@ -157,14 +152,11 @@ function iniciar_submit() {
             } else {
                 setErrorMessage(messages["JSON_NULL"]);            
                 $.mobile.hidePageLoadingMsg (); 
-            }*/
+            }
         } else {
             setErrorMessage(messages["STATUS_NO_200"]);            
             $.mobile.hidePageLoadingMsg (); 
         }
-        alert('time state' +request.readyState);
-        alert('time response' +request.responseText);
-        alert('time status' +request.status);   
     };   
     
     request.send();    
