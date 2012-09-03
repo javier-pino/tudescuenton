@@ -97,10 +97,20 @@ function iniciar_submit() {
     if (!password) {
         setErrorMessage("El campo 'Contraseña' es Obligatorio");        
     }
+    
+    var request;
+    if (window.XMLHttpRequest) {
+        request = new XMLHttpRequest();
+        setErrorMessage("si hay");
+        return        ;
+    } else {
+        setErrorMessage("NO HAY VERGA");        
+        return;
+    }
        
-    request = new XMLHttpRequest();
+    
     request.open("GET", server + '/td/restful/account/login' 
-        + '?email=' + email + '&password=' + password + '&callback=?', true);
+        + '?email=' + email + '&password=' + password, true);
     
     //Se asocia el timeout
     var xmlHttpTimeout = setTimeout(function () {                   
