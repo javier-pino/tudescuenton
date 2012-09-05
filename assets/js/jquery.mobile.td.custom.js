@@ -28,7 +28,7 @@ function prepare_initial_binds() {
         'Base de datos de persistencia para la app movil', 5 * 1024 * 1024); 
    
     //Probar la base de datos
-    $('#testing_user').live('click', function(event) {
+    /*$('#testing_user').live('click', function(event) {
         
         event.preventDefault();
         
@@ -42,13 +42,13 @@ function prepare_initial_binds() {
                 alert('Aun no te has logueado');
             }                
         }) ;        
-    });
+    });*/
     
     window.scrollTo(0, 0);    
     
 }
 
-//Los eventos necesarios para la pÃƒÂ¡gina de iniciar
+//Los eventos necesarios para la página de iniciar
 $('#iniciar').bind('pageinit', function () {
     
     prepare_initial_binds();
