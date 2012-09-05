@@ -53,8 +53,6 @@ $('#iniciar').bind('pageinit', function () {
     $('form#iniciar_sesion').live('submit', function (event) { 
         event.preventDefault();
         
-        $.mobile.showPageLoadingMsg ();
-        
         //Handling android multiple submit, by adding a timeout
         if (lock !== false)
              clearTimeout(lock);
@@ -85,6 +83,7 @@ $('#registrar').bind('pageinit', function () {
 /** Funcion que valida el input */
 function iniciar_submit() {
 
+    $.mobile.showPageLoadingMsg ();       
     clearMessages();
         
     var email = $("input#email", 'form#iniciar_sesion').val();
@@ -93,11 +92,13 @@ function iniciar_submit() {
     //If required attribute is not available, validate
     if (!email) {        
         setErrorMessage("El campo 'Correo' es Obligatorio");                
+        return;
     }
     if (!password) {
         setErrorMessage("El campo 'Contraseña' es Obligatorio");        
+        return;
     }
-    
+
     var request = new XMLHttpRequest();    
     request.open("GET", server + '/td/restful/account/login' 
         + '?email=' + email + '&password=' + password, true);
@@ -110,7 +111,7 @@ function iniciar_submit() {
             setErrorMessage(messages["TIME_OUT"]);                                    
         }   
         $.mobile.hidePageLoadingMsg ();                        
-    }, 5000);      
+    }, 15000);      
 
     //Se asocia el 
     request.onreadystatechange = function() {
