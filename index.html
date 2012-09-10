@@ -14,8 +14,7 @@
         <script type="text/javascript" charset="utf-8" src="assets/js/jquery-1.7.1.min.js"></script>
         <script type="text/javascript" charset="utf-8" src="assets/js/jquery.mobile.td.mobileinit.js"></script>
         <script type="text/javascript" charset="utf-8" src="assets/js/jquery.mobile.ios-orientationchange-fix.min.js"></script>
-        <script type="text/javascript" charset="utf-8" src="assets/js/jquery.mobile-1.1.1.min.js"></script>        
-        
+        <script type="text/javascript" charset="utf-8" src="assets/js/jquery.mobile-1.1.1.min.js"></script>                
     </head>
     <body>
         <div id="iniciar" data-role="page" data-title="Iniciar Sesión">            
@@ -51,16 +50,18 @@
                     <div data-role="fieldcontain">
                         <label for="email">Usuario:</label>
                         <input type="email" name="email" id="email" value="" 
-                               placeholder="Ingrese su login de usuario" required/>
+                               placeholder="Ingrese su login de usuario" data-required='true'
+                               data-message="El campo 'Login' es obligatorio"/>
                     </div>
                     <div data-role="fieldcontain">
                         <label for="password">Contraseña:</label>
                         <input type="password" name="password" id="password"
-                                placeholder="Ingrese su contraseña" required/>
+                                placeholder="Ingrese su contraseña" data-required='true'
+                                data-message="El campo 'Contraseña' es obligatorio"/>
                     </div>
                     <fieldset class="ui-grid-a">
                         <div class="ui-block-a">                            
-                            <button type="submit" data-theme="a">Ingresar</button>
+                            <button id="iniciar_sesion_button" type="button" data-theme="a">Ingresar</button>
                         </div>
                         <div class="ui-block-b">
                             <button type="reset" data-theme="d">Limpiar Formulario</button>
