@@ -7,6 +7,7 @@
  */
 var lock = false;
 var server = 'http://107.22.208.22';
+//var server = 'http://192.168.1.102';
 var timeout = 3000; 
 
 /************** FUNCIONES RELACIONADAS CON EL ENVIO DE MENSAJES ****************/
