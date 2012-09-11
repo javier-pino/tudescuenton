@@ -10,5 +10,6 @@
 $(document).bind('mobileinit', function(event){
 	$.mobile.loadingMessage = "Cargando ...";
         $.mobile.allowCrossDomainPages = true;        
+        $.support.cors = true;        
         $.mobile.pageLoadErrorMessage = "Error al cargar la página";        
 });

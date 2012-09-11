@@ -20,7 +20,7 @@ function prepare_initial_binds() {
 }
 
 //Los eventos necesarios para la página de iniciar
-$('#iniciar').bind('pageinit', function () {    
+$('#iniciar').live('pageinit', function () {    
     
     alert('iniciar');
     
@@ -35,7 +35,7 @@ $('#iniciar').bind('pageinit', function () {
 });
     
 //Los eventos necesarios para la página...
-$('#registrar').bind('pageinit', function () {   
+$('#registrar').live('pageinit', function () {   
     
     alert('registrar');
 
