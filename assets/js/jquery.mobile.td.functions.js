@@ -111,8 +111,11 @@ function validInput($form) {
 /** Procesa las peticiones ajax, toma como parámetro la función a llamar */
 function process_ajax_request(request, callback) {
 
+    alert(request.responseText);
+    alert(request.status);
     if (request.readyState != 4)  { return; }                
-    if (request.status == 200) {            
+    if (request.status == 200) {
+        
         var json = null;
         if (request.responseText != null && request.responseText != '') {                
             json = JSON.parse(request.responseText);                
@@ -130,7 +133,7 @@ function process_ajax_request(request, callback) {
 }
 
 /** Esta función asigna un timeoput a una peticion */
-function request_time_out(request, message) {
+function request_time_out(request) {
     
     //Se crea el timeout para esa peticion
     var xmlHttpTimeout = setTimeout(function () {                   

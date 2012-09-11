@@ -22,11 +22,12 @@ function prepare_initial_binds() {
 //Los eventos necesarios para la página de iniciar
 $('#iniciar').bind('pageinit', function () {    
     prepare_initial_binds();       
-    $(document).delegate('#iniciar_sesion_button', 'click', function(event) { 
+    $(document).delegate('#iniciar_sesion_button', 'click', function(event) {                 
         //Handling android multiple submit, by adding a timeout
         if (lock !== false)
              clearTimeout(lock);
-        lock = setTimeout(iniciar_submit, 500);         
+        lock = setTimeout(iniciar_submit, 500);  
+        return false;
     });       
 });
     
@@ -56,11 +57,12 @@ $('#registrar').bind('pageinit', function () {
         }
     });
     
-    $(document).delegate('#registrar_usuario_button', 'click', function() {        
+    $(document).delegate('#registrar_usuario_button', 'click', function() {                
         //Handling android multiple submit, by adding a timeout
         if (lock !== false)
              clearTimeout(lock);
         lock = setTimeout(registrar_usuario, 500); 
+        return false;        
     });   
 });
 
@@ -207,15 +209,14 @@ function process_iniciar_sesion (json) {
 
 /** Esta función procesa el json de registrar usuario */
 function process_registrar_usuario (json) {      
-    if (json.status) {                                                            
-        $.mobile.hidePageLoadingMsg ();                                                                                          
+    if (json.status) {        
         setInfoMessage(
             'Bienvenid@, ' + json.user.realname +
             ', te has registrado exitosamente y pronto se te enviará un correo de confirmación');                                                               
     } else {
-        setErrorMessage(json.message);
-        $.mobile.hidePageLoadingMsg ();          
+        setErrorMessage(json.message);        
     }
+    $.mobile.hidePageLoadingMsg ();          
 }
 
 /**- Esta función procesa la informacióin recibida por buscar_ciudades */
