@@ -20,10 +20,8 @@ function prepare_initial_binds() {
 }
 
 //Los eventos necesarios para la página de iniciar
-$('#iniciar').live('pageinit', function () {    
-    
-    alert('iniciar');
-    
+$(document).delegate('#iniciar' ,"pageinit", function() {
+    alert('iniciar');    
     prepare_initial_binds();       
     $(document).delegate('#iniciar_sesion_button', 'click', function(event) {                 
         //Handling android multiple submit, by adding a timeout
@@ -33,14 +31,12 @@ $('#iniciar').live('pageinit', function () {
         return false;
     });       
 });
+
     
 //Los eventos necesarios para la página...
-$('#registrar').live('pageinit', function () {   
-    
+$(document).delegate('#registrar' ,"pageinit", function() {    
     alert('registrar');
-
-    prepare_initial_binds();    
-    
+    prepare_initial_binds();        
     var request = new XMLHttpRequest();    
     request.open("GET", server + '/td/restful/account/ciudades_municipios', false);
     request_time_out(request);
