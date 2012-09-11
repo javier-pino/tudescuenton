@@ -21,6 +21,9 @@ function prepare_initial_binds() {
 
 //Los eventos necesarios para la página de iniciar
 $('#iniciar').bind('pageinit', function () {    
+    
+    alert('iniciar');
+    
     prepare_initial_binds();       
     $(document).delegate('#iniciar_sesion_button', 'click', function(event) {                 
         //Handling android multiple submit, by adding a timeout
@@ -32,7 +35,10 @@ $('#iniciar').bind('pageinit', function () {
 });
     
 //Los eventos necesarios para la página...
-$('#registrar').bind('pageinit', function () {       
+$('#registrar').bind('pageinit', function () {   
+    
+    alert('registrar');
+
     prepare_initial_binds();    
     
     var request = new XMLHttpRequest();    
