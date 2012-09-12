@@ -31,6 +31,7 @@ function setErrorMessage(text) {
     $('div#error_message h3').append('<p>' + text + '</p>');
     $('div#error_message').show();
     $('a[data-role=button]','div#error_message').focus();
+    window.scrollTo(0, 0);       
 }
 
 /** Permite declarar mensajes informativos */
@@ -38,6 +39,7 @@ function setInfoMessage(text) {
     $('div#info_message h3').append('<p>' + text + '</p>');
     $('div#info_message').show();
     $('a[data-role=button]','div#info_message').focus();
+    window.scrollTo(0, 0);
 }
 
 function clearMessages() {

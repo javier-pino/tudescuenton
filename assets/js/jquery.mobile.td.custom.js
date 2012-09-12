@@ -24,8 +24,7 @@ function prepare_initial_binds() {
 
 //Los eventos necesarios para la página de iniciar
 $(document).delegate('#iniciar' ,"pageinit", function() {
-    alert('iniciar');    
-    prepare_initial_binds();       
+    alert('iniciar');        
     $('form#iniciar_sesion').submit(function(event) {            
         alert('iniciar submit');
         //Handling android multiple submit, by adding a timeout
@@ -39,8 +38,7 @@ $(document).delegate('#iniciar' ,"pageinit", function() {
     
 //Los eventos necesarios para la página...
 $(document).delegate('#registrar' ,"pageinit", function() {    
-    alert('registrar');
-    prepare_initial_binds();        
+    alert('registrar');    
     var request = new XMLHttpRequest();    
     request.open("GET", server + '/td/restful/account/ciudades_municipios', false);
     request_time_out(request);
@@ -50,7 +48,8 @@ $(document).delegate('#registrar' ,"pageinit", function() {
     request.send();    
         
     //Cambia Municipio en caso de que se modifique ciudades
-    $(document).delegate('select#city_id', 'change', function() {        
+    $('select#city_id').change(function() {         
+        alert('change city');
         if ($(this).val() == 1) {         //Si la ciudad es Caracas
             $('div#municipio_input').hide();
             $('div#municipio_select').show();
@@ -62,8 +61,8 @@ $(document).delegate('#registrar' ,"pageinit", function() {
             $('div#municipio_input').hide();
         }
     });
-    
-    $(document).delegate('form#registrar_usuario', 'submit', function() {    
+       
+    $('form#registrar_usuario').submit(function(event) {            
         
         alert('Registrar submit');
         //Handling android multiple submit, by adding a timeout
