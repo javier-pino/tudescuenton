@@ -30,23 +30,29 @@ messages["PASSWORD_MIN_SIZE"] = 'El campo "Contraseña" debe tener más de 4 car
 function setErrorMessage(text) {        
     $('div#error_message h3').append('<p>' + text + '</p>');
     $('div#error_message').show();
-    $('a[data-role=button]','div#error_message').focus();
-    window.scrollTo(0, 0);       
+    $('a[data-role=button]','div#error_message').focus();    
 }
-
 /** Permite declarar mensajes informativos */
 function setInfoMessage(text) {
     $('div#info_message h3').append('<p>' + text + '</p>');
     $('div#info_message').show();
-    $('a[data-role=button]','div#info_message').focus();
-    window.scrollTo(0, 0);
+    $('a[data-role=button]','div#info_message').focus();    
 }
-
+/* */
 function clearMessages() {
     $('div#info_message h3').html('');
     $('div#error_message h3').html('');
     $('div#info_message').hide();
     $('div#error_message').hide();
+}
+/** Quita el loader y hace focus */
+function stop_loader_message() {
+    $.mobile.hidePageLoadingMsg ();
+    window.scrollTo(0, 0);
+}
+
+function start_loader() {
+    $.mobile.showPageLoadingMsg ();                               
 }
 
 /********************* FUNCIONES DE VALIDACIÓN DE INPUT *********************/
@@ -113,12 +119,8 @@ function validInput($form) {
 
 /** Procesa las peticiones ajax, toma como parámetro la función a llamar */
 function process_ajax_request(request, callback) {
-
-    alert(request.responseText);
-    alert(request.status);
     if (request.readyState != 4)  { return; }                
-    if (request.status == 200) {
-        
+    if (request.status == 200) {        
         var json = null;
         if (request.responseText != null && request.responseText != '') {                
             json = JSON.parse(request.responseText);                
@@ -127,11 +129,11 @@ function process_ajax_request(request, callback) {
             callback(json);
         } else {
             setErrorMessage(messages["JSON_NULL"]);            
-            $.mobile.hidePageLoadingMsg (); 
+            stop_loader_message();
         }
     } else {
         setErrorMessage(messages["STATUS_NO_200"]);            
-        $.mobile.hidePageLoadingMsg (); 
+        stop_loader_message();
     }   
 }
 
@@ -144,7 +146,7 @@ function request_time_out(request) {
             request.abort();             
             setErrorMessage(messages["TIME_OUT"]);            
         }   
-        $.mobile.hidePageLoadingMsg ();                        
+        stop_loader_message();
     }, timeout);
 }
 

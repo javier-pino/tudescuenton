@@ -23,33 +23,26 @@ function prepare_initial_binds() {
 }
 
 //Los eventos necesarios para la página de iniciar
-$(document).delegate('#iniciar' ,"pageinit", function() {
-    alert('iniciar');        
-    $('form#iniciar_sesion').submit(function(event) {            
-        alert('iniciar submit');
-        //Handling android multiple submit, by adding a timeout
+$(document).delegate('#iniciar' ,"pageinit", function() {    
+    $('form#iniciar_sesion').submit(function(event) {        
+        start_loader();
         if (lock !== false)
              clearTimeout(lock);
-        lock = setTimeout(iniciar_submit, 500);  
+        lock = setTimeout(iniciar_submit, 500);
         return false;
     });       
 });
-
     
 //Los eventos necesarios para la página...
-$(document).delegate('#registrar' ,"pageinit", function() {    
-    alert('registrar');    
+$(document).delegate('#registrar' ,"pageinit", function() {     
     var request = new XMLHttpRequest();    
     request.open("GET", server + '/td/restful/account/ciudades_municipios', false);
     request_time_out(request);
     request.onreadystatechange = function() {                
         process_ajax_request(request, process_buscar_ciudades);        
     };            
-    request.send();    
-        
-    //Cambia Municipio en caso de que se modifique ciudades
-    $('select#city_id').change(function() {         
-        alert('change city');
+    request.send();            
+    $('select#city_id').change(function() { //Cambia Municipio en caso de que se modifique ciudades
         if ($(this).val() == 1) {         //Si la ciudad es Caracas
             $('div#municipio_input').hide();
             $('div#municipio_select').show();
@@ -60,12 +53,9 @@ $(document).delegate('#registrar' ,"pageinit", function() {
             $('div#municipio_select').hide();
             $('div#municipio_input').hide();
         }
-    });
-       
+    });       
     $('form#registrar_usuario').submit(function(event) {            
-        
-        alert('Registrar submit');
-        //Handling android multiple submit, by adding a timeout
+        start_loader();                     
         if (lock !== false)
              clearTimeout(lock);
         lock = setTimeout(registrar_usuario, 500); 
@@ -76,18 +66,14 @@ $(document).delegate('#registrar' ,"pageinit", function() {
 
 /** Inicia el submit */
 function iniciar_submit() {
-
-    $.mobile.showPageLoadingMsg ();       
-    clearMessages();
-        
-    var email = $("input#email", 'form#iniciar_sesion').val();
-    var password = $("input#password", 'form#iniciar_sesion').val();
-        
-    if (!validInput($('form#iniciar_sesion'))) {
-        $.mobile.hidePageLoadingMsg (); 
-        return;
-    }
     
+    clearMessages();        
+    var email = $("input#email", 'form#iniciar_sesion').val();
+    var password = $("input#password", 'form#iniciar_sesion').val();        
+    if (!validInput($('form#iniciar_sesion'))) {
+        stop_loader_message();
+        return;
+    }    
     var request = new XMLHttpRequest();    
     request.open("GET", server + '/td/restful/account/login' 
         + '?email=' + email + '&password=' + password, true);
@@ -101,78 +87,66 @@ function iniciar_submit() {
 /** Función que registra al usuario */
 function registrar_usuario() {
     
-    $form = $('form#registrar_usuario');  
-    $.mobile.showPageLoadingMsg ();       
-    clearMessages();
-    
+    $form = $('form#registrar_usuario');      
+    clearMessages();    
     if (!validInput($form)) { //Hacer validaciones de obligatoriedad
-        $.mobile.hidePageLoadingMsg (); 
+        stop_loader_message();
         return;
-    }    
-    
+    }        
     var field = $form.find('input#realname').val();
     if (field.length > 32) {
         setErrorMessage(messages["REALNAME_MAX"]);
-        $.mobile.hidePageLoadingMsg ();
+        stop_loader_message();
         return;
-    }
-    
+    }    
     // Validaciones más complicadas 
     field = $form.find('input#birthday').val();
     if (!validDate(field)) {
         setErrorMessage(messages["INVALID_DATE"]);
-        $.mobile.hidePageLoadingMsg ();
+        stop_loader_message();
         return;
-    }
-        
+    }        
     field = $form.find('input#identifier').val();
     if (!validNumber(field)) {
         setErrorMessage(messages["INVALID_ID"]);
-        $.mobile.hidePageLoadingMsg ();
+        stop_loader_message();
         return;
     }
-
     field = $form.find('input#mobile').val();
     if (!validNumber(field)) {
         setErrorMessage(messages["INVALID_MOBILE"]);
-        $.mobile.hidePageLoadingMsg ();
+        stop_loader_message();
         return;
-    }
-   
+    }   
     field = $form.find('input#email').val();
     if (!validEmail(field)) {
         setErrorMessage(messages["INVALID_EMAIL"]);
-        $.mobile.hidePageLoadingMsg ();
+        stop_loader_message();
         return;
-    }    
-    
+    }        
     if (field != $form.find('input#email2').val()) {
         setErrorMessage(messages["EMAIL_NOT_MATCH"]);
-        $.mobile.hidePageLoadingMsg ();
+        stop_loader_message();
         return;
-    }
-    
+    }    
     field = $form.find('input#password').val();
     if (field.length < 4) {
         setErrorMessage(messages["PASSWORD_MIN_SIZE"]);
-        $.mobile.hidePageLoadingMsg ();
+        stop_loader_message();
         return;
-    }
-    
+    }    
     if ($form.find('input#password').val() != 
             $form.find('input#password2').val()) {
         setErrorMessage(messages["PASSWORD_NOT_MATCH"]);
-        $.mobile.hidePageLoadingMsg ();
+        stop_loader_message();
         return;
-    }
-    
+    }    
     field = $form.find('input#terminos').attr("checked");    
     if (field != "checked") {
         setErrorMessage(messages["TERMS_UNCHECK"]);
-        $.mobile.hidePageLoadingMsg ();
+        stop_loader_message();
         return;
-    }
-       
+    }       
     //Se crea la variable post y se realiza la petición
     post = encodeURI($form.serialize());
     var request = new XMLHttpRequest();         
@@ -200,17 +174,17 @@ function process_iniciar_sesion (json) {
             user.realname = json.user.realname;
             persistence.add(user);
 
-            persistence.flush(null, function () {
-                $.mobile.hidePageLoadingMsg ();                                                                                          
+            persistence.flush(null, function () {                
                 setInfoMessage(
                     'Bienvenid@, ' + json.user.realname +
                     ', ingresaste exitosamente usando tu correo: ' 
-                    + json.user.email);                
+                    + json.user.email);          
+                stop_loader_message();
             });
         });                                 
     } else {
         setErrorMessage(json.message);
-        $.mobile.hidePageLoadingMsg ();          
+        stop_loader_message();
     }   
 }
 
@@ -223,7 +197,7 @@ function process_registrar_usuario (json) {
     } else {
         setErrorMessage(json.message);        
     }
-    $.mobile.hidePageLoadingMsg ();          
+    stop_loader_message();
 }
 
 /**- Esta función procesa la informacióin recibida por buscar_ciudades */
@@ -247,3 +221,4 @@ function process_buscar_ciudades (json) {
     $select.selectmenu('refresh');
     return;    
 }
+
