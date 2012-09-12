@@ -3,6 +3,9 @@
  * comportamiento de la aplicacion 
  **/
 
+//Se hace la llamada a los binds iniciales
+prepare_initial_binds();
+
 //Se asocian los eventos necesarios para TODAS LAS PAGINAS
 function prepare_initial_binds() {
             
@@ -23,8 +26,7 @@ function prepare_initial_binds() {
 $(document).delegate('#iniciar' ,"pageinit", function() {
     alert('iniciar');    
     prepare_initial_binds();       
-    $(document).delegate('form#iniciar_sesion', 'submit', function(event) {    
-        
+    $('form#iniciar_sesion').submit(function(event) {            
         alert('iniciar submit');
         //Handling android multiple submit, by adding a timeout
         if (lock !== false)
