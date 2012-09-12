@@ -23,7 +23,9 @@ function prepare_initial_binds() {
 $(document).delegate('#iniciar' ,"pageinit", function() {
     alert('iniciar');    
     prepare_initial_binds();       
-    $(document).delegate('form#iniciar_sesion', 'submit', function(event) {                 
+    $(document).delegate('form#iniciar_sesion', 'submit', function(event) {    
+        
+        alert('iniciar submit');
         //Handling android multiple submit, by adding a timeout
         if (lock !== false)
              clearTimeout(lock);
@@ -59,7 +61,9 @@ $(document).delegate('#registrar' ,"pageinit", function() {
         }
     });
     
-    $(document).delegate('form#registrar_usuario', 'submit', function() {                
+    $(document).delegate('form#registrar_usuario', 'submit', function() {    
+        
+        alert('Registrar submit');
         //Handling android multiple submit, by adding a timeout
         if (lock !== false)
              clearTimeout(lock);
