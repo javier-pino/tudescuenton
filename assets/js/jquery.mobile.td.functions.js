@@ -6,9 +6,9 @@
  * Fecha 10/09/2012
  */
 var lock = false;
-var server = 'http://107.22.208.22';
-//var server = 'http://192.168.1.102';
-var timeout = 3000; 
+//var server = 'http://107.22.208.22';
+var server = 'http://192.168.1.111';
+var timeout = 30000; 
 
 /************** FUNCIONES RELACIONADAS CON EL ENVIO DE MENSAJES ****************/
 
@@ -25,6 +25,7 @@ messages["EMAIL_NOT_MATCH"] = 'Los campos "Correo Electrónico" y "Confirmar Cor
 messages["PASSWORD_NOT_MATCH"] = 'Los campos "Contraseña" y "Confirmar Contraseña" no coinciden';
 messages["TERMS_UNCHECK"] = 'Aceptar los Términos y Condiciones es obligatorio';
 messages["PASSWORD_MIN_SIZE"] = 'El campo "Contraseña" debe tener más de 4 caracteres';
+messages["INTEREST_MIN"] = 'Debe indicar al menos un interés';
 
 /** Permite declarar mensajes informativos */
 function setErrorMessage(text) {        
@@ -120,7 +121,7 @@ function validInput($form) {
 /** Procesa las peticiones ajax, toma como parámetro la función a llamar */
 function process_ajax_request(request, callback) {
     if (request.readyState != 4)  { return; }                
-    if (request.status == 200) {        
+    if (request.status == 200) {         
         var json = null;
         if (request.responseText != null && request.responseText != '') {                
             json = JSON.parse(request.responseText);                

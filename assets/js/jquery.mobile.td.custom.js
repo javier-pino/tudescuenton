@@ -34,14 +34,16 @@ $(document).delegate('#iniciar' ,"pageinit", function() {
 });
     
 //Los eventos necesarios para la página...
-$(document).delegate('#registrar' ,"pageinit", function() {     
+$(document).delegate('#registrar' ,"pageinit", function() {  
+    
     var request = new XMLHttpRequest();    
     request.open("GET", server + '/td/restful/account/ciudades_municipios', false);
     request_time_out(request);
     request.onreadystatechange = function() {                
         process_ajax_request(request, process_buscar_ciudades);        
     };            
-    request.send();            
+    request.send();   
+    
     $('select#city_id').change(function() { //Cambia Municipio en caso de que se modifique ciudades
         if ($(this).val() == 1) {         //Si la ciudad es Caracas
             $('div#municipio_input').hide();
@@ -54,6 +56,7 @@ $(document).delegate('#registrar' ,"pageinit", function() {
             $('div#municipio_input').hide();
         }
     });       
+   
     $('form#registrar_usuario').submit(function(event) {            
         start_loader();                     
         if (lock !== false)
@@ -146,9 +149,25 @@ function registrar_usuario() {
         setErrorMessage(messages["TERMS_UNCHECK"]);
         stop_loader_message();
         return;
-    }       
+    }
+    
+    var interest_checked = false;
+    var $interest = $form.find('input[name^="interest"]');
+    $.each($interest, function (key, $val) { 
+        if ($val.checked) {
+            interest_checked = true;
+            return false;            
+        }        
+    });    
+    if (!interest_checked) {
+        setErrorMessage(messages["INTEREST_MIN"]);
+        stop_loader_message();
+        return;
+    }
+    
     //Se crea la variable post y se realiza la petición
     post = encodeURI($form.serialize());
+    alert(post);
     var request = new XMLHttpRequest();         
     request.open("POST", server + '/td/restful/account/register', true);
     request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");                
@@ -221,4 +240,3 @@ function process_buscar_ciudades (json) {
     $select.selectmenu('refresh');
     return;    
 }
-
