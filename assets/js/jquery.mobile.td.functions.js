@@ -6,8 +6,8 @@
  * Fecha 10/09/2012
  */
 var lock = false;
-//var server = 'http://107.22.208.22';
-var server = 'http://192.168.1.111';
+var server = 'http://107.22.208.22';
+//var server = 'http://192.168.1.111';
 var timeout = 30000; 
 
 /************** FUNCIONES RELACIONADAS CON EL ENVIO DE MENSAJES ****************/
