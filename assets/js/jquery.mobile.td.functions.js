@@ -9,6 +9,7 @@ var lock = false;
 var server = 'http://107.22.208.22';
 //var server = 'http://192.168.1.111';
 var timeout = 30000; 
+//var timeout = 2000; 
 
 /************** FUNCIONES RELACIONADAS CON EL ENVIO DE MENSAJES ****************/
 
@@ -122,6 +123,9 @@ function validInput($form) {
 function process_ajax_request(request, callback) {
     if (request.readyState != 4)  { return; }                
     if (request.status == 200) {         
+        
+        alert(request.responseText);
+        
         var json = null;
         if (request.responseText != null && request.responseText != '') {                
             json = JSON.parse(request.responseText);                
