@@ -144,12 +144,6 @@ function registrar_usuario() {
         stop_loader_message();
         return;
     }    
-    field = $form.find('input#terminos').attr("checked");    
-    if (field != "checked") {
-        setErrorMessage(messages["TERMS_UNCHECK"]);
-        stop_loader_message();
-        return;
-    }
     
     var interest_checked = false;
     var $interest = $form.find('input[name^="interest"]');
@@ -165,9 +159,15 @@ function registrar_usuario() {
         return;
     }
     
+    field = $form.find('input#terminos').attr("checked");    
+    if (field != "checked") {
+        setErrorMessage(messages["TERMS_UNCHECK"]);
+        stop_loader_message();
+        return;
+    }
+    
     //Se crea la variable post y se realiza la petición
-    post = encodeURI($form.serialize());
-    alert(post);
+    post = encodeURI($form.serialize());    
     var request = new XMLHttpRequest();         
     request.open("POST", server + '/td/restful/account/register', true);
     request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");                

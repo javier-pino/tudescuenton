@@ -122,10 +122,8 @@ function validInput($form) {
 /** Procesa las peticiones ajax, toma como parámetro la función a llamar */
 function process_ajax_request(request, callback) {
     if (request.readyState != 4)  { return; }                
-    if (request.status == 200) {         
-        
-        alert(request.responseText);
-        
+    if (request.status == 200) {                 
+
         var json = null;
         if (request.responseText != null && request.responseText != '') {                
             json = JSON.parse(request.responseText);                
